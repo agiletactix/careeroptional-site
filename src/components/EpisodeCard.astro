@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  slug: string;
+  episodeNumber?: number;
+  description: string;
+  pubDate: Date;
+  duration: string;
+  isFriday?: boolean;
+}
+
+const { title, slug, episodeNumber, description, pubDate, duration, isFriday = false } = Astro.props;
+const formattedDate = pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
+---
+
+<a href={`/podcast/${slug}/`} class="block group no-underline">
+  <article class:list={[
+    "p-6 rounded-lg border transition-all",
+    isFriday
+      ? "border-sunset-amber/40 hover:border-sunset-amber bg-white/50"
+      : "border-border hover:border-agile-blue/30 bg-white/50"
+  ]}>
+    <div class="flex items-start gap-4">
+      <!-- Day indicator -->
+      <div class="flex-shrink-0 mt-1">
+        {isFriday ? (
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sunset-amber/10 text-sunset-amber text-xs font-semibold">
+            Human Take
+          </span>
+        ) : (
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-agile-blue mt-1.5"></span>
+        )}
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-3 mb-1">
+          {episodeNumber !== undefined && (
+            <span class="text-ink-muted text-xs font-medium">EP {episodeNumber}</span>
+          )}
+          <span class="text-ink-muted text-xs">{formattedDate}</span>
+          <span class="text-ink-muted text-xs">{duration}</span>
+        </div>
+
+        <h3 class="text-lg font-semibold text-ink group-hover:text-agile-blue transition-colors leading-snug">
+          {title}
+        </h3>
+
+        <p class="text-ink-light text-sm mt-2 line-clamp-2">
+          {description}
+        </p>
+      </div>
+    </div>
+  </article>
+</a>

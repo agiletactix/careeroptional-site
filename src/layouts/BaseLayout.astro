@@ -1,0 +1,68 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "The skills that make employment optional. A podcast by Danny Liu." } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title === 'Career Optional' ? title : `${title} | Career Optional`}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Career Optional Podcast" href="/podcast.xml" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <style>
+    @import '../styles/global.css';
+  </style>
+</head>
+<body>
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
+    <div class="section-container flex items-center justify-between h-16">
+      <a href="/" class="text-ink font-bold text-lg tracking-tight hover:text-ink no-underline">
+        Career Optional
+      </a>
+      <div class="flex items-center gap-8">
+        <a href="/podcast/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Episodes</a>
+        <a href="/offers/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Offers</a>
+        <a href="/podcast.xml" class="text-ink-muted hover:text-ink text-sm no-underline" title="RSS Feed">RSS</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="border-t border-border py-12 mt-16">
+    <div class="section-container text-center">
+      <p class="text-ink-muted text-sm">
+        &copy; {new Date().getFullYear()} Career Optional &middot; A podcast by Danny Liu
+      </p>
+      <p class="text-ink-muted text-xs mt-2">
+        <a href="https://agiletactix.ai" class="text-ink-muted hover:text-agile-blue no-underline">AgileTactix Consulting</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PodcastHero from '../components/PodcastHero.astro';
+import AudioPlayer from '../components/AudioPlayer.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import NewsletterEmbed from '../components/NewsletterEmbed.astro';
+import { getCollection } from 'astro:content';
+
+const allEpisodes = await getCollection('podcast');
+const sortedEpisodes = allEpisodes.sort((a, b) =>
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+const latestEpisode = sortedEpisodes[0];
+---
+
+<BaseLayout title="Career Optional" description="The skills that make employment optional. A podcast by Danny Liu about agile thinking, AI automation, and career optionality.">
+  <!-- Hero -->
+  <PodcastHero />
+
+  <!-- Daily Drop — Latest Episode -->
+  {latestEpisode && (
+    <section class="pb-16">
+      <div class="section-container">
+        <p class="text-agile-blue font-semibold text-sm tracking-wide uppercase mb-4">Latest Episode</p>
+        <AudioPlayer
+          title={latestEpisode.data.title}
+          episodeNumber={latestEpisode.data.episodeNumber}
+          duration={latestEpisode.data.duration}
+          audioUrl={latestEpisode.data.audioUrl}
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- Episode List -->
+  <section class="py-16 border-t border-border">
+    <div class="section-container">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-ink">Episodes</h2>
+        <a href="/podcast/" class="text-agile-blue text-sm font-medium hover:text-agile-blue-hover no-underline">
+          View all &rarr;
+        </a>
+      </div>
+
+      <div class="space-y-4">
+        {sortedEpisodes.slice(0, 5).map((episode) => (
+          <EpisodeCard
+            title={episode.data.title}
+            slug={episode.id}
+            episodeNumber={episode.data.episodeNumber}
+            description={episode.data.description}
+            pubDate={episode.data.pubDate}
+            duration={episode.data.duration}
+            isFriday={episode.data.isFriday}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <NewsletterEmbed />
+
+  <!-- Subscribe Platforms -->
+  <section class="py-16">
+    <div class="section-container text-center">
+      <h2 class="text-2xl font-bold text-ink mb-4">Listen everywhere.</h2>
+      <p class="text-ink-light mb-8">Available on all major podcast platforms.</p>
+      <div class="flex flex-wrap items-center justify-center gap-6">
+        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">Apple Podcasts</span>
+        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">Spotify</span>
+        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">YouTube Podcasts</span>
+        <a href="/podcast.xml" class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg hover:border-agile-blue hover:text-agile-blue no-underline">RSS Feed</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
