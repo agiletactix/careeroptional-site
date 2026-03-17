@@ -18,8 +18,8 @@ const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
   <article class:list={[
     "p-6 rounded-lg border transition-all",
     isFriday
-      ? "border-accent/40 hover:border-accent bg-white/50"
-      : "border-border hover:border-accent/30 bg-white/50"
+      ? "border-accent/40 hover:border-accent hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all"
+      : "border-border hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all"
   ]}>
     <div class="flex items-start gap-4">
       <!-- Thumbnail placeholder -->

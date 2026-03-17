@@ -9,7 +9,7 @@ const podcast = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     duration: z.string(),
-    audioUrl: z.string().url(),
+    audioUrl: z.string(),
     episodeType: z.enum(['full', 'trailer', 'bonus']).default('full'),
     season: z.number().default(1),
     explicit: z.boolean().default(false),
