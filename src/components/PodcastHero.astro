@@ -1,36 +1,41 @@
 ---
 ---
 
-<section class="pt-28 pb-16 md:pt-36 md:pb-24">
+<section class="section-spacing">
   <div class="section-container">
-    <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-      <!-- Photo slot -->
-      <div class="flex-shrink-0 order-2 md:order-1">
-        <!-- TODO: replace with hero photo once available -->
-        <div class="w-72 h-96 md:w-[400px] md:h-[500px] bg-cream-dark rounded-2xl flex items-center justify-center border border-border">
-          <div class="text-center px-8">
-            <div class="w-20 h-20 rounded-full bg-agile-blue/10 flex items-center justify-center mx-auto mb-4">
-              <span class="text-agile-blue text-3xl font-bold">DL</span>
-            </div>
-            <p class="text-ink-muted text-xs">TODO: replace with hero photo</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="flex-1 text-center md:text-left order-1 md:order-2">
-        <p class="text-agile-blue font-semibold text-sm tracking-wide uppercase mb-4">A Podcast by Danny Liu</p>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-ink leading-tight mb-6">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <!-- Content — left on desktop, top on mobile -->
+      <div class="flex-1 text-center lg:text-left">
+        <p class="text-accent font-semibold text-sm tracking-wide uppercase mb-4">A Podcast by Danny Liu</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink leading-[1.1] mb-6">
           The skills that make<br />
-          <span class="text-agile-blue">employment optional.</span>
+          <span class="text-accent">employment optional.</span>
         </h1>
-        <p class="text-ink-light text-lg md:text-xl max-w-lg mb-8 leading-relaxed">
+        <p class="text-ink-light text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
           Agile thinking meets AI automation. Whether you stay corporate or go indie,
           the same skill set gives you options.
         </p>
-        <a href="#subscribe" class="btn-primary text-base">
-          Subscribe to the Newsletter
-        </a>
+        <div class="flex flex-col sm:flex-row items-center lg:items-start gap-3">
+          <a href="/podcast/" class="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-gray-900 text-white hover:bg-gray-700 transition-colors no-underline">
+            Browse episodes
+          </a>
+          <a href="#subscribe" class="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold border border-gray-300 text-gray-700 bg-transparent hover:border-gray-500 transition-colors no-underline">
+            Subscribe to the Newsletter
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo — right on desktop, below on mobile -->
+      <div class="flex-shrink-0 flex items-center justify-center">
+        <!-- TODO: replace with hero photo once available -->
+        <div class="aspect-square max-w-sm w-72 lg:w-80 bg-cream-dark rounded-2xl flex items-center justify-center border border-border">
+          <div class="text-center px-8">
+            <div class="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+              <span class="text-accent text-3xl font-bold">DL</span>
+            </div>
+            <p class="text-ink-muted text-xs">Hero photo placeholder</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

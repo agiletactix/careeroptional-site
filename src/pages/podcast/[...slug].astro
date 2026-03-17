@@ -22,64 +22,66 @@ const formattedDate = episode.data.pubDate.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={episode.data.title} description={episode.data.description}>
-  <article class="pt-28 pb-16">
-    <div class="section-container max-w-3xl">
-      <!-- Meta -->
-      <div class="flex items-center gap-3 mb-4">
-        {episode.data.episodeNumber !== undefined && (
-          <span class="text-agile-blue text-xs font-semibold bg-agile-blue/5 px-2 py-0.5 rounded">
-            EP {episode.data.episodeNumber}
-          </span>
-        )}
-        {episode.data.isFriday && (
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sunset-amber/10 text-sunset-amber text-xs font-semibold">
-            Human Take
-          </span>
-        )}
-        <span class="text-ink-muted text-sm">{formattedDate}</span>
-        <span class="text-ink-muted text-sm">{episode.data.duration}</span>
-      </div>
-
-      <h1 class="text-3xl md:text-4xl font-bold text-ink leading-tight mb-6">
-        {episode.data.title}
-      </h1>
-
-      <p class="text-ink-light text-lg mb-8">
-        {episode.data.description}
-      </p>
-
-      <!-- Player -->
-      <div class="mb-10">
-        <AudioPlayer
-          title={episode.data.title}
-          episodeNumber={episode.data.episodeNumber}
-          duration={episode.data.duration}
-          audioUrl={episode.data.audioUrl}
-        />
-      </div>
-
-      <!-- Tags -->
-      {episode.data.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-10">
-          {episode.data.tags.map((tag: string) => (
-            <span class="text-ink-muted text-xs font-medium px-3 py-1 bg-cream border border-border rounded-full">
-              {tag}
+  <article class="section-spacing">
+    <div class="section-container">
+      <div class="max-w-3xl">
+        <!-- Meta -->
+        <div class="flex items-center gap-3 mb-4">
+          {episode.data.episodeNumber !== undefined && (
+            <span class="text-xs font-bold bg-accent text-white px-2 py-0.5 rounded-md">
+              EP {episode.data.episodeNumber}
             </span>
-          ))}
+          )}
+          {episode.data.isFriday && (
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
+              Human Take
+            </span>
+          )}
+          <span class="text-ink-muted text-sm">{formattedDate}</span>
+          <span class="text-ink-muted text-sm">{episode.data.duration}</span>
         </div>
-      )}
 
-      <!-- Show Notes -->
-      <div class="prose-content border-t border-border pt-8">
-        <h2 class="text-lg font-semibold text-ink mb-4">Show Notes</h2>
-        <Content />
-      </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-ink leading-tight mb-6">
+          {episode.data.title}
+        </h1>
 
-      <!-- Back link -->
-      <div class="mt-12 pt-8 border-t border-border">
-        <a href="/podcast/" class="text-agile-blue text-sm font-medium hover:text-agile-blue-hover no-underline">
-          &larr; All episodes
-        </a>
+        <p class="text-ink-light text-lg mb-8">
+          {episode.data.description}
+        </p>
+
+        <!-- Player -->
+        <div class="mb-10">
+          <AudioPlayer
+            title={episode.data.title}
+            episodeNumber={episode.data.episodeNumber}
+            duration={episode.data.duration}
+            audioUrl={episode.data.audioUrl}
+          />
+        </div>
+
+        <!-- Tags -->
+        {episode.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-10">
+            {episode.data.tags.map((tag: string) => (
+              <span class="text-ink-muted text-xs font-medium px-3 py-1 bg-cream border border-border rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Show Notes -->
+        <div class="prose-content border-t border-border pt-8">
+          <h2 class="text-lg font-semibold text-ink mb-4">Show Notes</h2>
+          <Content />
+        </div>
+
+        <!-- Back link -->
+        <div class="mt-12 pt-8 border-t border-border">
+          <a href="/podcast/" class="text-accent text-sm font-medium hover:text-accent-hover no-underline">
+            &larr; All episodes
+          </a>
+        </div>
       </div>
     </div>
   </article>

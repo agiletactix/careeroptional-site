@@ -9,17 +9,17 @@ interface Props {
 const { title, episodeNumber, duration, audioUrl } = Astro.props;
 ---
 
-<div class="bg-white rounded-lg border border-border p-5">
+<div class="bg-white rounded-lg border border-border p-6">
   <div class="flex items-center gap-3 mb-3">
     {episodeNumber !== undefined && (
-      <span class="text-agile-blue text-xs font-semibold bg-agile-blue/5 px-2 py-0.5 rounded">
+      <span class="text-xs font-bold bg-accent text-white px-2 py-0.5 rounded-md">
         EP {episodeNumber}
       </span>
     )}
     <h4 class="text-ink font-semibold text-sm truncate">{title}</h4>
     <span class="text-ink-muted text-xs flex-shrink-0">{duration}</span>
   </div>
-  <audio controls preload="metadata" class="w-full h-10" style="accent-color: #294BF3;">
+  <audio controls preload="metadata" class="w-full h-10" style="accent-color: #f97316;">
     <source src={audioUrl} type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>

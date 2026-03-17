@@ -18,31 +18,28 @@ const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
   <article class:list={[
     "p-6 rounded-lg border transition-all",
     isFriday
-      ? "border-sunset-amber/40 hover:border-sunset-amber bg-white/50"
-      : "border-border hover:border-agile-blue/30 bg-white/50"
+      ? "border-accent/40 hover:border-accent bg-white/50"
+      : "border-border hover:border-accent/30 bg-white/50"
   ]}>
     <div class="flex items-start gap-4">
-      <!-- Day indicator -->
-      <div class="flex-shrink-0 mt-1">
-        {isFriday ? (
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sunset-amber/10 text-sunset-amber text-xs font-semibold">
-            Human Take
-          </span>
-        ) : (
-          <span class="inline-block w-2.5 h-2.5 rounded-full bg-agile-blue mt-1.5"></span>
-        )}
-      </div>
+      <!-- Thumbnail placeholder -->
+      <div class="w-12 h-12 rounded-lg bg-gray-100 flex-shrink-0"></div>
 
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-3 mb-1">
+          {isFriday && (
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
+              Human Take
+            </span>
+          )}
           {episodeNumber !== undefined && (
-            <span class="text-ink-muted text-xs font-medium">EP {episodeNumber}</span>
+            <span class="text-xs font-bold bg-accent text-white px-2 py-0.5 rounded-md">EP {episodeNumber}</span>
           )}
           <span class="text-ink-muted text-xs">{formattedDate}</span>
           <span class="text-ink-muted text-xs">{duration}</span>
         </div>
 
-        <h3 class="text-lg font-semibold text-ink group-hover:text-agile-blue transition-colors leading-snug">
+        <h3 class="text-lg font-semibold text-ink group-hover:text-accent-hover transition-colors leading-snug">
           {title}
         </h3>
 

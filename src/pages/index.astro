@@ -19,9 +19,9 @@ const latestEpisode = sortedEpisodes[0];
 
   <!-- Daily Drop — Latest Episode -->
   {latestEpisode && (
-    <section class="pb-16">
+    <section class="section-spacing border-t border-border">
       <div class="section-container">
-        <p class="text-agile-blue font-semibold text-sm tracking-wide uppercase mb-4">Latest Episode</p>
+        <p class="text-accent font-semibold text-sm tracking-wide uppercase mb-4">Latest Episode</p>
         <AudioPlayer
           title={latestEpisode.data.title}
           episodeNumber={latestEpisode.data.episodeNumber}
@@ -33,11 +33,11 @@ const latestEpisode = sortedEpisodes[0];
   )}
 
   <!-- Episode List -->
-  <section class="py-16 border-t border-border">
+  <section class="section-spacing border-t border-border">
     <div class="section-container">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl font-bold text-ink">Episodes</h2>
-        <a href="/podcast/" class="text-agile-blue text-sm font-medium hover:text-agile-blue-hover no-underline">
+        <a href="/podcast/" class="text-accent text-sm font-medium hover:text-accent-hover no-underline">
           View all &rarr;
         </a>
       </div>
@@ -62,15 +62,15 @@ const latestEpisode = sortedEpisodes[0];
   <NewsletterEmbed />
 
   <!-- Subscribe Platforms -->
-  <section class="py-16">
+  <section class="section-spacing">
     <div class="section-container text-center">
       <h2 class="text-2xl font-bold text-ink mb-4">Listen everywhere.</h2>
       <p class="text-ink-light mb-8">Available on all major podcast platforms.</p>
-      <div class="flex flex-wrap items-center justify-center gap-6">
-        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">Apple Podcasts</span>
-        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">Spotify</span>
-        <span class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg">YouTube Podcasts</span>
-        <a href="/podcast.xml" class="text-ink-muted text-sm font-medium px-4 py-2 border border-border rounded-lg hover:border-agile-blue hover:text-agile-blue no-underline">RSS Feed</a>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <span class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm">Apple Podcasts</span>
+        <span class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm">Spotify</span>
+        <span class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm">YouTube Podcasts</span>
+        <a href="/podcast.xml" class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 transition-all no-underline">RSS Feed</a>
       </div>
     </div>
   </section>

@@ -6,6 +6,8 @@ interface Props {
 
 const { title, description = "The skills that make employment optional. A podcast by Danny Liu." } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+import '../styles/global.css';
 ---
 
 <!doctype html>
@@ -31,36 +33,38 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Styles -->
-  <style>
-    @import '../styles/global.css';
-  </style>
+  <!-- Styles loaded via frontmatter import to avoid Astro scoping -->
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
   <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
-    <div class="section-container flex items-center justify-between h-16">
-      <a href="/" class="text-ink font-bold text-lg tracking-tight hover:text-ink no-underline">
-        Career Optional
-      </a>
-      <div class="flex items-center gap-8">
-        <a href="/podcast/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Episodes</a>
-        <a href="/offers/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Offers</a>
-        <a href="/podcast.xml" class="text-ink-muted hover:text-ink text-sm no-underline" title="RSS Feed">RSS</a>
+    <div class="section-container py-6">
+      <div class="flex items-center justify-between">
+        <a href="/" class="font-bold text-lg tracking-tight hover:text-ink no-underline">
+          <span class="text-gray-900">Career </span><span class="text-accent">Optional</span>
+        </a>
+        <div class="flex items-center gap-6 sm:gap-8">
+          <a href="/podcast/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Episodes</a>
+          <a href="/offers/" class="text-ink-light hover:text-ink text-sm font-medium no-underline">Offers</a>
+          <a href="/podcast.xml" class="text-ink-muted hover:text-ink text-sm no-underline hidden sm:inline" title="RSS Feed">RSS</a>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main>
+  <!-- Spacer for fixed nav -->
+  <div class="h-[76px]"></div>
+
+  <main class="flex-grow">
     <slot />
   </main>
 
-  <footer class="border-t border-border py-12 mt-16">
+  <footer class="border-t border-border py-12">
     <div class="section-container text-center">
       <p class="text-ink-muted text-sm">
         &copy; {new Date().getFullYear()} Career Optional &middot; A podcast by Danny Liu
       </p>
-      <p class="text-ink-muted text-xs mt-2">
-        <a href="https://agiletactix.ai" class="text-ink-muted hover:text-agile-blue no-underline">AgileTactix Consulting</a>
+      <p class="text-ink-muted text-xs mt-3">
+        <a href="https://agiletactix.ai" class="text-ink-muted hover:text-accent no-underline">AgileTactix Consulting</a>
       </p>
     </div>
   </footer>
