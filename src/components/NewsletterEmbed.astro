@@ -11,11 +11,54 @@
         Delivered to your inbox every Monday.
       </p>
 
-      <!-- TODO: Replace with Beehiiv embed code -->
-      <div id="beehiiv-embed" class="bg-cream rounded-lg border border-border p-8">
-        <p class="text-ink-muted text-sm">Beehiiv newsletter embed will go here.</p>
-        <p class="text-ink-muted text-xs mt-2">Replace this placeholder with your Beehiiv embed script.</p>
-      </div>
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input
+          type="email"
+          name="email_address"
+          placeholder="Your email"
+          required
+          class="flex-1 px-4 py-3 rounded-full border border-gray-300 text-base focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+        />
+        <button
+          type="submit"
+          class="px-6 py-3 rounded-full bg-gray-900 text-white font-semibold text-sm hover:bg-gray-700 hover:-translate-y-0.5 hover:shadow-md transition-all"
+        >
+          Subscribe
+        </button>
+      </form>
+      <p id="newsletter-success" class="text-green-600 font-medium mt-4 hidden">You're in! Check your inbox.</p>
+      <p id="newsletter-error" class="text-red-600 font-medium mt-4 hidden">Something went wrong. Try again.</p>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = this;
+    var btn = form.querySelector('button');
+    var email = form.querySelector('input[name="email_address"]').value;
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+
+    fetch('https://app.kit.com/forms/9222590/subscriptions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'email_address=' + encodeURIComponent(email),
+      redirect: 'manual'
+    }).then(function(res) {
+      if (res.ok || res.status === 302 || res.type === 'opaqueredirect') {
+        form.classList.add('hidden');
+        document.getElementById('newsletter-success').classList.remove('hidden');
+      } else {
+        document.getElementById('newsletter-error').classList.remove('hidden');
+        btn.textContent = 'Subscribe';
+        btn.disabled = false;
+      }
+    }).catch(function() {
+      document.getElementById('newsletter-error').classList.remove('hidden');
+      btn.textContent = 'Subscribe';
+      btn.disabled = false;
+    });
+  });
+</script>
