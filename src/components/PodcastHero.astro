@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import heroPhoto from '../assets/images/website-hero.png';
 ---
 
 <section class="section-spacing">
@@ -27,15 +29,13 @@
 
       <!-- Photo — right on desktop, below on mobile -->
       <div class="flex-shrink-0 flex items-center justify-center">
-        <!-- TODO: replace with hero photo once available -->
-        <div class="aspect-square max-w-sm w-72 lg:w-80 bg-cream-dark rounded-2xl flex items-center justify-center border border-border">
-          <div class="text-center px-8">
-            <div class="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-              <span class="text-accent text-3xl font-bold">DL</span>
-            </div>
-            <p class="text-ink-muted text-xs">Hero photo placeholder</p>
-          </div>
-        </div>
+        <Image
+          src={heroPhoto}
+          alt="Danny Liu — Career Optional podcast host"
+          class="aspect-square max-w-md w-88 lg:w-[28rem] rounded-2xl object-cover"
+          width={640}
+          height={640}
+        />
       </div>
     </div>
   </div>
