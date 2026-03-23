@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import podcastArt from '../assets/images/podcast-art.png';
+
 interface Props {
   title: string;
   slug: string;
@@ -22,8 +25,13 @@ const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
       : "border-border hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all"
   ]}>
     <div class="flex items-start gap-4">
-      <!-- Thumbnail placeholder -->
-      <div class="w-12 h-12 rounded-lg bg-gray-100 flex-shrink-0"></div>
+      <Image
+        src={podcastArt}
+        alt="Career Optional"
+        class="w-12 h-12 rounded-lg flex-shrink-0 object-cover"
+        width={48}
+        height={48}
+      />
 
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-3 mb-1">
