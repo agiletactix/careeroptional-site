@@ -1,19 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
-import { getCollection, render } from 'astro:content';
+import { getEpisodes, getEpisodeBySlug } from '../../lib/episodes';
 
 export async function getStaticPaths() {
-  const episodes = await getCollection('podcast');
+  const episodes = await getEpisodes();
   return episodes.map((episode) => ({
-    params: { slug: episode.id },
+    params: { slug: episode.slug },
     props: { episode },
   }));
 }
 
 const { episode } = Astro.props;
-const { Content } = await render(episode);
-const formattedDate = episode.data.pubDate.toLocaleDateString('en-US', {
+const formattedDate = episode.pubDate.toLocaleDateString('en-US', {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
@@ -21,60 +20,46 @@ const formattedDate = episode.data.pubDate.toLocaleDateString('en-US', {
 });
 ---
 
-<BaseLayout title={episode.data.title} description={episode.data.description}>
+<BaseLayout title={episode.title} description={episode.description}>
   <article class="section-spacing">
     <div class="section-container">
       <div class="max-w-3xl">
         <!-- Meta -->
         <div class="flex items-center gap-3 mb-4">
-          {episode.data.episodeNumber !== undefined && (
+          {episode.episodeNumber !== undefined && (
             <span class="text-xs font-bold bg-accent text-white px-2 py-0.5 rounded-md">
-              EP {episode.data.episodeNumber}
-            </span>
-          )}
-          {episode.data.isFriday && (
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
-              Human Take
+              EP {episode.episodeNumber}
             </span>
           )}
           <span class="text-ink-muted text-sm">{formattedDate}</span>
-          <span class="text-ink-muted text-sm">{episode.data.duration}</span>
+          <span class="text-ink-muted text-sm">{episode.duration}</span>
         </div>
 
         <h1 class="text-3xl md:text-4xl font-bold text-ink leading-tight mb-6">
-          {episode.data.title}
+          {episode.title}
         </h1>
 
         <p class="text-ink-light text-lg mb-8">
-          {episode.data.description}
+          {episode.description}
         </p>
 
         <!-- Player -->
         <div class="mb-10">
           <AudioPlayer
-            title={episode.data.title}
-            episodeNumber={episode.data.episodeNumber}
-            duration={episode.data.duration}
-            audioUrl={episode.data.audioUrl}
+            title={episode.title}
+            episodeNumber={episode.episodeNumber}
+            duration={episode.duration}
+            audioUrl={episode.audioUrl}
           />
         </div>
 
-        <!-- Tags -->
-        {episode.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-10">
-            {episode.data.tags.map((tag: string) => (
-              <span class="text-ink-muted text-xs font-medium px-3 py-1 bg-cream border border-border rounded-full">
-                {tag}
-              </span>
-            ))}
+        <!-- Show Notes -->
+        {episode.contentHtml && (
+          <div class="prose-content border-t border-border pt-8">
+            <h2 class="text-lg font-semibold text-ink mb-4">Show Notes</h2>
+            <Fragment set:html={episode.contentHtml} />
           </div>
         )}
-
-        <!-- Show Notes -->
-        <div class="prose-content border-t border-border pt-8">
-          <h2 class="text-lg font-semibold text-ink mb-4">Show Notes</h2>
-          <Content />
-        </div>
 
         <!-- Back link -->
         <div class="mt-12 pt-8 border-t border-border">

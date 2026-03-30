@@ -4,12 +4,9 @@ import PodcastHero from '../components/PodcastHero.astro';
 import AudioPlayer from '../components/AudioPlayer.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
 import NewsletterEmbed from '../components/NewsletterEmbed.astro';
-import { getCollection } from 'astro:content';
+import { getEpisodes } from '../lib/episodes';
 
-const allEpisodes = await getCollection('podcast');
-const sortedEpisodes = allEpisodes.sort((a, b) =>
-  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-);
+const sortedEpisodes = await getEpisodes();
 const latestEpisode = sortedEpisodes[0];
 ---
 
@@ -23,10 +20,10 @@ const latestEpisode = sortedEpisodes[0];
       <div class="section-container">
         <p class="text-accent font-semibold text-sm tracking-wide uppercase mb-4">Latest Episode</p>
         <AudioPlayer
-          title={latestEpisode.data.title}
-          episodeNumber={latestEpisode.data.episodeNumber}
-          duration={latestEpisode.data.duration}
-          audioUrl={latestEpisode.data.audioUrl}
+          title={latestEpisode.title}
+          episodeNumber={latestEpisode.episodeNumber}
+          duration={latestEpisode.duration}
+          audioUrl={latestEpisode.audioUrl}
         />
       </div>
     </section>
@@ -45,13 +42,12 @@ const latestEpisode = sortedEpisodes[0];
       <div class="space-y-4">
         {sortedEpisodes.slice(0, 5).map((episode) => (
           <EpisodeCard
-            title={episode.data.title}
-            slug={episode.id}
-            episodeNumber={episode.data.episodeNumber}
-            description={episode.data.description}
-            pubDate={episode.data.pubDate}
-            duration={episode.data.duration}
-            isFriday={episode.data.isFriday}
+            title={episode.title}
+            slug={episode.slug}
+            episodeNumber={episode.episodeNumber}
+            description={episode.description}
+            pubDate={episode.pubDate}
+            duration={episode.duration}
           />
         ))}
       </div>
@@ -68,8 +64,8 @@ const latestEpisode = sortedEpisodes[0];
       <p class="text-ink-light mb-8">Available on all major podcast platforms.</p>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="https://open.spotify.com/show/5S0wWKuLzuhvqgF6cS8eLr" target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 transition-all no-underline">Spotify</a>
-        <span class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-400 shadow-sm cursor-default" title="Pending approval">Apple Podcasts (coming soon)</span>
-        <a href="/podcast.xml" class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 transition-all no-underline">RSS Feed</a>
+        <a href="https://podcasts.apple.com/us/podcast/career-optional/id1886208605" target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 transition-all no-underline">Apple Podcasts</a>
+        <a href="https://www.youtube.com/@agiletactix?sub_confirmation=1" target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-white rounded-full border border-gray-200 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 transition-all no-underline">YouTube</a>
       </div>
     </div>
   </section>

@@ -9,21 +9,14 @@ interface Props {
   description: string;
   pubDate: Date;
   duration: string;
-  isFriday?: boolean;
 }
 
-const { title, slug, episodeNumber, description, pubDate, duration, isFriday = false } = Astro.props;
+const { title, slug, episodeNumber, description, pubDate, duration } = Astro.props;
 const formattedDate = pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
 ---
 
 <a href={`/podcast/${slug}/`} class="block group no-underline">
-  <article class:list={[
-    "p-6 rounded-lg border transition-all",
-    isFriday
-      ? "border-accent/40 hover:border-accent hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all"
-      : "border-border hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all"
-  ]}>
+  <article class="p-6 rounded-lg border border-border hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5 bg-white/50 transition-all">
     <div class="flex items-start gap-4">
       <Image
         src={podcastArt}
@@ -35,11 +28,6 @@ const dayOfWeek = pubDate.toLocaleDateString('en-US', { weekday: 'long' });
 
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-3 mb-1">
-          {isFriday && (
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
-              Human Take
-            </span>
-          )}
           {episodeNumber !== undefined && (
             <span class="text-xs font-bold bg-accent text-white px-2 py-0.5 rounded-md">EP {episodeNumber}</span>
           )}

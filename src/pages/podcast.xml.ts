@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { getEpisodes } from '../lib/episodes';
 
 function escapeXml(str: string): string {
   return str
@@ -15,28 +15,25 @@ function formatRfc2822(date: Date): string {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const episodes = await getCollection('podcast');
-  const sorted = episodes.sort(
-    (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-  );
+  const episodes = await getEpisodes();
 
   const siteUrl = site?.toString().replace(/\/$/, '') ?? 'https://careeroptional.ai';
 
-  const items = sorted
+  const items = episodes
     .map((ep) => {
-      const epUrl = `${siteUrl}/podcast/${ep.id}/`;
+      const epUrl = `${siteUrl}/podcast/${ep.slug}/`;
       return `    <item>
-      <title>${escapeXml(ep.data.title)}</title>
+      <title>${escapeXml(ep.title)}</title>
       <link>${epUrl}</link>
-      <description>${escapeXml(ep.data.description)}</description>
-      <pubDate>${formatRfc2822(new Date(ep.data.pubDate))}</pubDate>
+      <description>${escapeXml(ep.description)}</description>
+      <pubDate>${formatRfc2822(ep.pubDate)}</pubDate>
       <guid isPermaLink="true">${epUrl}</guid>
-      <enclosure url="${escapeXml(ep.data.audioUrl)}" type="audio/mpeg" length="0" />
-      <itunes:episodeType>${ep.data.episodeType}</itunes:episodeType>
-      ${ep.data.episodeNumber !== undefined ? `<itunes:episode>${ep.data.episodeNumber}</itunes:episode>` : ''}
-      <itunes:season>${ep.data.season}</itunes:season>
-      <itunes:duration>${escapeXml(ep.data.duration)}</itunes:duration>
-      <itunes:explicit>${ep.data.explicit ? 'true' : 'false'}</itunes:explicit>
+      <enclosure url="${escapeXml(ep.audioUrl)}" type="audio/mpeg" length="0" />
+      <itunes:episodeType>${ep.episodeType}</itunes:episodeType>
+      ${ep.episodeNumber !== undefined ? `<itunes:episode>${ep.episodeNumber}</itunes:episode>` : ''}
+      <itunes:season>${ep.season}</itunes:season>
+      <itunes:duration>${escapeXml(ep.duration)}</itunes:duration>
+      <itunes:explicit>${ep.explicit ? 'true' : 'false'}</itunes:explicit>
     </item>`;
     })
     .join('\n');

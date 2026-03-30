@@ -41,6 +41,11 @@
     btn.textContent = 'Subscribing...';
     btn.disabled = true;
 
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      form.classList.add('hidden');
+      document.getElementById('newsletter-success').classList.remove('hidden');
+      return;
+    }
     fetch('https://app.kit.com/forms/9222590/subscriptions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
