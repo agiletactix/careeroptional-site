@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [transistor-publish]
+  schedule:
+    # Rebuild every 6 hours to pick up new Transistor episodes
+    - cron: '0 */6 * * *'
 
 permissions:
   contents: read
